@@ -2,6 +2,7 @@ package likelion.applicant.user.repository;
 
 import likelion.applicant.user.dto.UserDto;
 import likelion.applicant.user.entity.Babylion;
+import likelion.applicant.util.exception.EntityNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +21,9 @@ public class UserRepository {
 
     public UserDto userCheck(String name, String phone, String email) {
         Babylion babylion = userRepositoryInterface.findByNameAndEmailAndPhone(name, email, phone);
+        if(babylion == null)
+            throw new EntityNotFoundException("사용자가 존재하지 않습니다.");
+
         UserDto userDto = new UserDto();
         BeanUtils.copyProperties(babylion, userDto);
         return userDto;

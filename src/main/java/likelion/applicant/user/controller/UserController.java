@@ -2,14 +2,12 @@ package likelion.applicant.user.controller;
 
 
 import likelion.applicant.user.dto.UserDto;
+import likelion.applicant.user.dto.UesrReqDto;
 import likelion.applicant.user.entity.Babylion;
 import likelion.applicant.user.repository.UserRepository;
 import likelion.applicant.user.repository.UserRepositoryInterface;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/babylion")
@@ -26,8 +24,8 @@ public class UserController {
     }
 
     @PostMapping("/check")
-    public UserDto userCheck(@RequestParam("name") String name, @RequestParam("phone") String phone, @RequestParam("email") String email) {
-        return userRepository.userCheck(name, phone, email);
+    public UserDto userCheck(@RequestBody UesrReqDto userReqDto) {
+        return userRepository.userCheck(userReqDto.getName(), userReqDto.getPhone(), userReqDto.getEmail());
     }
 
 }
